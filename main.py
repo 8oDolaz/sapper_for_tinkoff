@@ -164,12 +164,16 @@ class Grid:
             self.grid_play[x_cord][y_cord] = '·'
 
 
+def remove_save(*args):
+    for file in args:
+        os.remove(file)
+
+
 def game(save):
     if save:
         grid = Grid(0, 0, 0)
         grid.__load__()
-        os.remove('grid1.txt')
-        os.remove('grid2.txt')
+        remove_save('grid1.txt', 'grid2.txt')
     else:
         grid_params = [*map(int, input('Введите длину, ширину поля и количество бомб:').split(' '))]
         grid = Grid(grid_params[0], grid_params[1], grid_params[2])
@@ -223,8 +227,7 @@ def main():
         if answer == 'да':
             save_param = True
         elif answer == 'нет':
-            os.remove('grid1.txt')
-            os.remove('grid2.txt')
+            remove_save('grid1.txt', 'grid2.txt')
             print('Хорошо, тогда начнем новую игру!')
 
     print(game(save_param))
